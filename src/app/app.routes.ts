@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
 
+
+// we use lazy loading routing type of routing to load the component ehen it is called only
+//
+
 export const routes: Routes = [
     {
     path: "dashboard",
@@ -8,6 +12,7 @@ export const routes: Routes = [
     (m) => m.StudentDashboardComponent,
 ),
 },
+
 {
     path: "courses/:id",
     loadComponent: () =>
@@ -15,6 +20,13 @@ export const routes: Routes = [
         (m) => m.CourseDetailComponent
       ),
   },
+
 { path: "", redirectTo: "dashboard", pathMatch: "full" },
+
+{
+path: 'enroll',
+loadComponent: () => import('./features/enrollment-form/enrollment-form')
+.then(m => m.EnrollmentForm)
+}
 
 ];
