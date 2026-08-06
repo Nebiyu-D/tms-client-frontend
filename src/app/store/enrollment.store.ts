@@ -18,20 +18,14 @@ import { Enrollment } from '../models/enrollment.model';
 
 export const EnrollmentStore = signalStore(
   { providedIn: 'root' },
-  // Simple state properties
   withState({ isLoading: false, error: null as string | null }),
-  
-  // Entity collection providing O(1) lookups and updates by ID
   withEntities<Enrollment>(),
-  
-  // Derived computed signal recalculates automatically when entities change
   withComputed((store) => ({
     pendingCount: computed(
       () => store.entities().filter((e) => e.status === 'Pending').length
     ),
   })),
 
-  // Reactive methods handling API side-effects and state updates
   withMethods((store, api = inject(EnrollmentService)) => ({
     loadEnrollments: rxMethod<void>(
       pipe(
@@ -56,7 +50,6 @@ export const EnrollmentStore = signalStore(
     approveEnrollment: rxMethod<string>(
       pipe(
         tap((id) => {
-          // Optimistic Update: Immediately update UI before HTTP call
           patchState(
             store,
             updateEntity({ id, changes: { status: 'Approved' } })
@@ -65,7 +58,6 @@ export const EnrollmentStore = signalStore(
         concatMap((id) =>
           api.approve(id).pipe(
             catchError((err) => {
-              // Rollback to previous state on server failure
               patchState(
                 store,
                 updateEntity({ id, changes: { status: 'Pending' } }),
