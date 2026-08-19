@@ -20,4 +20,9 @@ export class CourseService {
   getById(id: string) {
     return this.http.get<CourseDetail>(`${this.base}/${id}`);
   }
+  // ...existing code...
+
+  delete(id: number) {
+    return this.http.delete<void>(`/api/courses/${id}`);
+  }
 }

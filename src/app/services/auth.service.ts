@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, Service, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -11,7 +11,7 @@ export interface LoginRequest {
   username: string;
   password: string;
 }
-@Injectable()
+@Service()
 export class AuthService {
   private http = inject(HttpClient);
   currentUser = signal<TmsUser | null>(null);
