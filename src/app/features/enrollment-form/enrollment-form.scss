@@ -1,0 +1,146 @@
+:host {
+  display: block;
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1f2328;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+  color: #444;
+}
+
+input,
+textarea {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: #98a2b3;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: #d92d20;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.error {
+  font-size: 0.8rem;
+  color: #d92d20;
+  margin-top: 0.25rem;
+}
+
+.backup-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  input {
+    flex: 1;
+  }
+
+  button {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #667085;
+
+    &:hover {
+      border-color: #d92d20;
+      color: #d92d20;
+    }
+  }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #eaecf0;
+  margin: 1.25rem 0;
+}
+
+button[type="button"]:not(.backup-row button) {
+  align-self: flex-start;
+  background: #fff;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background: #f9fafb;
+  }
+}
+
+button[type="submit"] {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #4338ca;
+  }
+
+  &:disabled {
+    background: #d0d5dd;
+    cursor: not-allowed;
+  }
+}
+
+.success {
+  padding: 1rem;
+  border-radius: 8px;
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  color: #067647;
+  font-size: 0.95rem;
+}

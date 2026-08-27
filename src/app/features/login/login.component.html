@@ -1,0 +1,60 @@
+<main class="login-page">
+  <section class="form-panel">
+    <div class="form-wrap">
+      <p class="eyebrow">Welcome back</p>
+      <h2>Sign in to your account</h2>
+      <p class="intro">Pick up where you left off.</p>
+
+      <form (ngSubmit)="submit()" #loginForm="ngForm">
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required
+          autocomplete="email"
+          placeholder="you@example.com"
+        />
+
+        <div class="label-row">
+          <label for="password">Password</label>
+          <a href="#" (click)="$event.preventDefault()">Forgot password?</a>
+        </div>
+        <div class="password-field">
+          <input
+            id="password"
+            name="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            [(ngModel)]="password"
+            required
+            autocomplete="current-password"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            class="visibility-button"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            (click)="showPassword.update((visible) => !visible)"
+          >
+            {{ showPassword() ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+
+        @if (errorMessage()) {
+          <p class="error-message" role="alert">{{ errorMessage() }}</p>
+        }
+
+        <button class="submit-button" type="submit" [disabled]="loginForm.invalid || isSubmitting()">
+          <span>{{ isSubmitting() ? 'Signing in...' : 'Sign in' }}</span>
+          @if (!isSubmitting()) {
+            <span aria-hidden="true">&#8594;</span>
+          }
+        </button>
+      </form>
+
+      <p class="support-copy">Need access? <a href="mailto:support@qiyas.academy">Contact your administrator</a></p>
+    </div>
+    <p class="footer-note">© 2026 Qiyas Academy</p>
+  </section>
+</main>
