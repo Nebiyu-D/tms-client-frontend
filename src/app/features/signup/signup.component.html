@@ -1,0 +1,107 @@
+<main class="signup-page">
+  <section class="form-panel">
+    <div class="form-wrap">
+      <p class="eyebrow">Create account</p>
+      <h2>Join the training platform</h2>
+
+      <form (ngSubmit)="submit()" #signupForm="ngForm">
+        <div class="name-row">
+          <div>
+            <label for="firstName">First name</label>
+            <input
+              id="firstName"
+              name="firstName"
+              type="text"
+              [(ngModel)]="firstName"
+              required
+              autocomplete="given-name"
+              placeholder="First name"
+            />
+          </div>
+
+          <div>
+            <label for="lastName">Last name</label>
+            <input
+              id="lastName"
+              name="lastName"
+              type="text"
+              [(ngModel)]="lastName"
+              required
+              autocomplete="family-name"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+
+        <label for="email">Email address</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required
+          autocomplete="email"
+          placeholder="you@example.com"
+        />
+
+        <label for="role">Role</label>
+        <select id="role" name="role" [(ngModel)]="role">
+          <option value="Student">Student</option>
+          <option value="Instructor">Instructor</option>
+        </select>
+
+        <label for="password">Password</label>
+        <div class="password-field">
+          <input
+            id="password"
+            name="password"
+            [type]="showPassword() ? 'text' : 'password'"
+            [(ngModel)]="password"
+            required
+            autocomplete="new-password"
+            placeholder="Create a password"
+          />
+          <button
+            type="button"
+            class="visibility-button"
+            [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            (click)="showPassword.update((visible) => !visible)"
+          >
+            {{ showPassword() ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          [(ngModel)]="confirmPassword"
+          required
+          autocomplete="new-password"
+          placeholder="Repeat your password"
+        />
+
+        @if (errorMessage()) {
+          <p class="error-message" role="alert">{{ errorMessage() }}</p>
+        }
+
+        @if (successMessage()) {
+          <p class="success-message" role="status">{{ successMessage() }}</p>
+        }
+
+        <button class="submit-button" type="submit" [disabled]="signupForm.invalid || isSubmitting()">
+          <span>{{ isSubmitting() ? 'Creating account...' : 'Create account' }}</span>
+          @if (!isSubmitting()) {
+            <span aria-hidden="true">&#8594;</span>
+          }
+        </button>
+
+        <p class="switch-copy">
+          Already have an account?
+          <a routerLink="/login">Sign in</a>
+        </p>
+      </form>
+    </div>
+  </section>
+</main>

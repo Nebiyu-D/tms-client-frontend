@@ -3,7 +3,7 @@
     <div class="form-wrap">
       <p class="eyebrow">Welcome back</p>
       <h2>Sign in to your account</h2>
-      <p class="intro">Pick up where you left off.</p>
+      
 
       <form (ngSubmit)="submit()" #loginForm="ngForm">
         <label for="email">Email address</label>
@@ -45,16 +45,18 @@
           <p class="error-message" role="alert">{{ errorMessage() }}</p>
         }
 
-        <button class="submit-button" type="submit" [disabled]="loginForm.invalid || isSubmitting()">
-          <span>{{ isSubmitting() ? 'Signing in...' : 'Sign in' }}</span>
-          @if (!isSubmitting()) {
+        <button class="submit-button" type="submit" [disabled]="loginForm.invalid || isSubmitting() || isLocked()">
+          <span>{{ isSubmitting() ? 'Signing in...' : isLocked() ? 'Locked' : 'Sign in' }}</span>
+          @if (!isSubmitting() && !isLocked()) {
             <span aria-hidden="true">&#8594;</span>
           }
         </button>
-      </form>
 
-      <p class="support-copy">Need access? <a href="mailto:support@qiyas.academy">Contact your administrator</a></p>
+        <p class="switch-copy">
+          Don’t have an account?
+          <a routerLink="/signup">SignUp</a>
+        </p>
+      </form>
     </div>
-    <p class="footer-note">© 2026 Qiyas Academy</p>
   </section>
-</main>
+</main> 

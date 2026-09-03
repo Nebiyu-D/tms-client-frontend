@@ -11,6 +11,13 @@ export const routes: Routes = [
         (m) => m.LoginComponent,
       ),
   },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('./features/signup/signup.component').then(
+        (m) => m.SignupComponent,
+      ),
+  },
     {
     path: "dashboard",
     loadComponent: () =>
@@ -34,10 +41,10 @@ import('./features/enrollment-form/enrollment-form').then
   (m => m.EnrollmentForm)
 },
 {
-    path: 'enrollments',
-    loadComponent: () =>
-      import('./features/enrollment-list/enrollment-list.component').then(
-        (m) => m.EnrollmentListComponent),
+  path: 'enrollments',
+  loadComponent: () =>
+    import('./features/enrollment-list/enrollment-list.component').then(
+      (m) => m.EnrollmentListComponent),
   },
   {
   path: 'Ins-dashboard',

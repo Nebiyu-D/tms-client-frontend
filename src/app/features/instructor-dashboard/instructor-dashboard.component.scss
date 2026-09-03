@@ -9,14 +9,14 @@ margin-top: 1rem;
 .kpi-card {
 padding: 1rem 1.5rem;
 border-radius: 8px;
-background: #1e293b;
-color: #e2e8f0;
+background: #bf6b4d;
+color: #ffffff;
 display: flex;
 flex-direction: column;
 min-width: 160px;
 }
 .kpi-card.pending {
-border-left: 4px solid #d97706;
+border-left: 4px solid bf6b4d;
 }
 .kpi-value {
 font-size: 2rem;
@@ -24,7 +24,7 @@ font-weight: 700;
 }
 .kpi-label {
 font-size: 0.85rem;
-color: #94a3b8;
+color: #ffffff;
 margin-top: 0.25rem;
 }
 .chart-section {
@@ -38,7 +38,7 @@ min-height: 250px;
 display: flex;
 align-items: center;
 justify-content: center;
-background: #1e293b;
+background: #9aadca;
 border: 2px dashed #334155;
 border-radius: 8px;
 color: #64748b;

@@ -3,6 +3,7 @@ import { CourseCardComponent } from "../../ui/course-card/course-card";
 import { Course } from "../../models/course.model";
 import { rxResource } from "@angular/core/rxjs-interop";
 import { CourseService } from "../../services/course.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-student-dashboard',
@@ -13,16 +14,16 @@ import { CourseService } from "../../services/course.service";
 })
 export class StudentDashboardComponent {
   private api = inject(CourseService);
-  studentName = signal("Liya Kebede");
+  private auth = inject(AuthService);
+ 
+  //studentName = signal("Liya Kebede");
+  studentName = computed(() => this.auth.currentUser()?.displayName ?? 'Guest')
   earnedCredits = signal(45);
-
   selectedCourse = signal<Course | null>(null);
-
-  
-
   graduationStatus = computed(() =>
     this.earnedCredits() >= 120 ? "Eligible for Graduation" : "In Progress"
   );
+  creditsRemaining = computed(() => Math.max(120 - this.earnedCredits(), 0));
 
   coursesResource = rxResource({
     stream: () => this.api.getAll(),

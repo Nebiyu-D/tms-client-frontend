@@ -1,17 +1,57 @@
-<h2>Course Catalog</h2>
+<main class="dashboard-page">
+  <header class="dashboard-header">
+    <div>
+      <p class="eyebrow">Student portal</p>
+      <h1>Welcome back, {{ studentName() }}</h1>
+    </div>
+    <span class="status-pill">{{ graduationStatus() }}</span>
+  </header>
 
-@if (coursesResource.isLoading()) {
-  <div class="spinner">Fetching courses from the server...</div>
-} @else if (coursesResource.error()) {
-  <div class="error">
-    Could not load courses. Make sure your .NET API is running.
-  </div>
-} @else {
-  <div class="grid">
-    @for (course of coursesResource.value()!; track course.id) {
-      <tms-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
-    } @empty {
-      <p>No courses are available this term.</p>
+  <section class="summary-grid" aria-label="Student summary">
+    <article class="summary-card">
+      <span class="label">Earned credits</span>
+      <strong>{{ earnedCredits() }}</strong>
+      <small>of 120 required</small>
+    </article>
+
+    <article class="summary-card accent">
+      <span class="label">Current status</span>
+      <strong>{{ graduationStatus() }}</strong>
+      <small>Progress is on track</small>
+    </article>
+
+    <article class="summary-card">
+      <span class="label">Next milestone</span>
+      <strong>{{ creditsRemaining() }}</strong>
+      <small>credits remaining</small>
+    </article>
+  </section>
+
+  <section class="catalog-panel">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Explore</p>
+        <h2>Course Catalog</h2>
+      </div>
+      <button type="button" class="primary-button" (click)="registerForClass()">
+        Add credit
+      </button>
+    </div>
+
+    @if (coursesResource.isLoading()) {
+      <div class="spinner">Fetching courses from the server...</div>
+    } @else if (coursesResource.error()) {
+      <div class="error">
+        Could not load courses. Make sure your .NET API is running.
+      </div>
+    } @else {
+      <div class="grid">
+        @for (course of coursesResource.value()!; track course.id) {
+          <tms-course-card [course]="course" (enrollClicked)="handleEnroll($event)" />
+        } @empty {
+          <p class="empty-state">No courses are available this term.</p>
+        }
+      </div>
     }
-  </div>
-}
+  </section>
+</main>

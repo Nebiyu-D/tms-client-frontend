@@ -1,9 +1,9 @@
 .chart-container {
 padding: 1.5rem;
-border: 1px solid #334155;
+border: 1px solid #b97962;
 border-radius: 8px;
-background: #0f172a;
-color: #e2e8f0;
+background: #fdfdfd;
+color: #000000;
 }
 .chart-bars {
 display: flex;
@@ -13,8 +13,8 @@ height: 200px;
 padding: 1rem 0;
 }
 .bar {
-width: 80px;
-border-radius: 4px 4px 0 0;
+width: 100px;
+border-radius: 4px 4px 4px 4px;
 display: flex;
 align-items: flex-end;
 justify-content: center;
@@ -29,5 +29,5 @@ min-height: 20px;
 .chart-summary {
 margin-top: 1rem;
 font-size: 0.9rem;
-color: #94a3b8;
+color: #fdfdfd;
 }
