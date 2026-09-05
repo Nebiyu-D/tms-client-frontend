@@ -1,0 +1,53 @@
+<main class="create-course-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Course administration</p>
+      <h1>Create Course</h1>
+      <p class="intro">Add a new course to the training catalogue.</p>
+    </div>
+    <a class="back-link" routerLink="/admin/courses">Back to courses</a>
+  </header>
+
+  <section class="form-panel">
+    @if (errorMessage()) {
+      <p class="error-message" role="alert">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="form-grid">
+        <label>
+          Course code
+          <input formControlName="code" placeholder="CSE-101" autocomplete="off" />
+          @if (form.controls.code.touched && form.controls.code.hasError('required')) {
+            <span class="field-error">Course code is required.</span>
+          } @else if (form.controls.code.touched && form.controls.code.hasError('pattern')) {
+            <span class="field-error">Use the format CSE-101.</span>
+          }
+        </label>
+
+        <label>
+          Maximum capacity
+          <input type="number" formControlName="maxCapacity" min="1" max="200" />
+          @if (form.controls.maxCapacity.touched && form.controls.maxCapacity.invalid) {
+            <span class="field-error">Capacity must be between 1 and 200.</span>
+          }
+        </label>
+
+        <label class="full-width">
+          Course title
+          <input formControlName="title" placeholder="Data Structures and Algorithms" />
+          @if (form.controls.title.touched && form.controls.title.hasError('required')) {
+            <span class="field-error">Course title is required.</span>
+          }
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <a class="cancel-button" routerLink="/admin/courses">Cancel</a>
+        <button class="submit-button" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Creating...' : 'Create Course' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</main>

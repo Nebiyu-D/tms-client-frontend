@@ -39,7 +39,10 @@ export class AuthService  {
 
   hasRole(role: string): boolean {
     const user = this.currentUser();
-    return user?.role === role || user?.role === 'Admin';
+    const userRole = user?.role?.trim().toLowerCase();
+    const requiredRole = role.trim().toLowerCase();
+
+    return userRole === requiredRole || userRole === 'admin';
   }
 
   async login(credentials: LoginRequest): Promise<void> {

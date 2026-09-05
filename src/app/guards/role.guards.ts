@@ -8,8 +8,9 @@ export const roleGuard = (requiredRole: string): CanActivateFn => {
         const auth = inject(AuthService);
         const router = inject(Router);
         if (auth.hasRole(requiredRole)) {
-            
+            return true;
         }
-        return router.createUrlTree(["/unauthorized"]);
+        // This route is not registered, so redirect to a valid page instead.
+        return router.createUrlTree(['/login']);
     };
 };

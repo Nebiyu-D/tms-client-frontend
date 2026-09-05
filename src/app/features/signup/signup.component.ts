@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -60,10 +61,21 @@ export class SignupComponent {
       setTimeout(async () => {
         await this.router.navigate(['/login']);
       }, 1200);
-    } catch {
-      this.errorMessage.set('Unable to create your account right now. Please try again.');
+    } catch (error) {
+      this.errorMessage.set(this.getRegistrationError(error));
     } finally {
       this.isSubmitting.set(false);
     }
+  }
+
+  private getRegistrationError(error: unknown): string {
+    if (error instanceof HttpErrorResponse) {
+      const errors = error.error?.errors;
+      if (Array.isArray(errors) && errors.length > 0) {
+        return errors.join(' ');
+      }
+    }
+
+    return 'Unable to create your account right now. Please try again.';
   }
 }

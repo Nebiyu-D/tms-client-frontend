@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +7,8 @@ import {
   ReactiveFormsModule,
   FormArray,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { EnrollmentService } from '../../services/enrollment.service';
 
 @Component({
   selector: 'app-enrollment-form',
@@ -16,15 +19,19 @@ import {
 })
 export class EnrollmentForm {
   private fb = inject(FormBuilder);
+  private enrollmentService = inject(EnrollmentService);
+  private router = inject(Router);
   submitted = signal(false);
+  errorMessage = signal('');
+  isSubmitting = signal(false);
 
   // Define form controls using nonNullable formBuilder
   form = this.fb.nonNullable.group({
-    studentId: [
+    registrationNumber: [
       '',
-      [Validators.required, Validators.pattern('^STU-[0-9]{4}$')],
+      [Validators.required, Validators.pattern('^TMS-[0-9]{4}-[0-9]{4}$')],
     ],
-    courseId: ['', Validators.required],
+    courseId: [0, [Validators.required, Validators.min(1)]],
     term: ['Fall 2026', Validators.required],
     notes: [''],
     backupCourses: this.fb.array<FormControl<string>>([]),
@@ -51,15 +58,25 @@ export class EnrollmentForm {
   }
 
   // Handle form submission
-  submit() {
-    if (this.form.valid) {
-      // Use getRawValue() to preserve values even if controls are disabled
-      const payload = this.form.getRawValue();
-      console.log('Enrollment payload:', payload);
-      this.submitted.set(true);
-    } else {
+  async submit(): Promise<void> {
+    if (!this.form.valid || this.isSubmitting()) {
       // Force all validation errors to render on untouched fields
       this.form.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.errorMessage.set('');
+
+    try {
+      const { registrationNumber, courseId } = this.form.getRawValue();
+      await firstValueFrom(this.enrollmentService.enroll({ registrationNumber, courseId }));
+      this.submitted.set(true);
+      await this.router.navigate(['/enrollments']);
+    } catch (error: any) {
+      this.errorMessage.set(error?.error?.detail ?? 'Enrollment could not be submitted.');
+    } finally {
+      this.isSubmitting.set(false);
     }
   }
 }

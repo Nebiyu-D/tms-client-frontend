@@ -65,7 +65,13 @@ export class LoginComponent {
 
     try {
       await this.auth.login({ email: this.email, password: this.password });
-      await this.router.navigate(['/dashboard']);
+      const role = this.auth.currentUser()?.role.trim().toLowerCase();
+      const dashboardRoute = role === 'admin'
+        ? '/admin/courses'
+        : role === 'instructor'
+          ? '/Ins-dashboard'
+          : '/dashboard';
+      await this.router.navigate([dashboardRoute]);
     } catch (error) {
       const httpError = error as HttpErrorResponse;
       const status = httpError?.status;

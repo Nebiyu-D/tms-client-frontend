@@ -6,22 +6,27 @@
     </div>
 }@else {
 
+@if (errorMessage()) {
+  <div class="error" role="alert">{{ errorMessage() }}</div>
+}
+
 <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- Student ID -->
-    <label for="studentId">Student ID</label>
-    <input
-      id="studentId"
-      formControlName="studentId"
-      placeholder="e.g. STU-1234"
+  <!-- Student registration number -->
+  <label for="registrationNumber">Registration Number</label>
+      <input
+        id="registrationNumber"
+        formControlName="registrationNumber"
+        placeholder="e.g. TMS-2026-0001"
     />
-    @if (form.controls.studentId.touched && form.controls.studentId.invalid) {
-      <span class="error">Enter a valid Student ID (format: STU-0000)</span>
+      @if (form.controls.registrationNumber.touched && form.controls.registrationNumber.invalid) {
+        <span class="error">Enter a valid registration number (format: TMS-2026-0000)</span>
     }
 
-    <!-- Course ID -->
+    <!-- Course ID used by the legacy enrollment endpoint -->
     <label for="courseId">Course ID</label>
-    <input
-      id="courseId"
+      <input
+        type="number"
+        id="courseId"
       formControlName="courseId"
       placeholder="e.g. 1"
     />
@@ -53,6 +58,8 @@
 
     <hr />
 
-    <button type="submit" [disabled]="form.invalid">Confirm Enrollment</button>
+      <button type="submit" [disabled]="form.invalid || isSubmitting()">
+        {{ isSubmitting() ? 'Submitting...' : 'Confirm Enrollment' }}
+      </button>
   </form>
 }

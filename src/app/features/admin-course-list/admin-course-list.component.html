@@ -1,0 +1,59 @@
+<main class="admin-courses">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Course administration</p>
+      <h1>Course Records</h1>
+    </div>
+
+    <div class="page-actions">
+      <button class="secondary-button" type="button" (click)="loadCourses()" [disabled]="isLoading()">
+        Refresh
+      </button>
+      <a class="primary-button" routerLink="/admin/courses/new">
+        Create Course
+      </a>
+    </div>
+  </header>
+
+  @if (errorMessage()) {
+    <p class="error-message" role="alert">{{ errorMessage() }}</p>
+  }
+
+  <section class="table-panel" aria-label="Course records">
+    @if (isLoading()) {
+      <p class="status-text">Loading courses...</p>
+    } @else if (courses().length === 0) {
+      <p class="status-text">No courses found.</p>
+    } @else {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Course</th>
+              <th>Capacity</th>
+              <th>Enrolled</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (course of courses(); track course.id) {
+              <tr>
+                <td>{{ course.code }}</td>
+                <td>{{ course.title }}</td>
+                <td>{{ course.maxCapacity }}</td>
+                <td>{{ course.enrollmentCount }}</td>
+                <td><span class="status-badge">Active</span></td>
+                <td>
+                  <button class="delete-button" type="button" (click)="deleteCourse(course)">Delete</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <footer class="table-footer">{{ courses().length }} course{{ courses().length === 1 ? '' : 's' }}</footer>
+    }
+  </section>
+</main>

@@ -4,6 +4,12 @@ import { map } from "rxjs/operators";
 import { Course, CourseDetail, PagedResponse } from "../models/course.model";
 import {environment} from "../../environments/environment";
 
+export interface CreateCourseRequest {
+  code: string;
+  title: string;
+  maxCapacity: number;
+}
+
 @Service()
 export class CourseService {
   private http = inject(HttpClient);
@@ -15,6 +21,14 @@ export class CourseService {
         params: { page: page.toString(), pageSize: pageSize.toString() },
       })
       .pipe(map((p) => p.items)); 
+  }
+
+  getAllForAdmin() {
+    return this.http.get<Course[]>('/api/courses/all');
+  }
+
+  create(request: CreateCourseRequest) {
+    return this.http.post<Course>('/api/courses', request);
   }
 
   getById(id: string) {

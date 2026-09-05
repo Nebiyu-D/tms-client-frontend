@@ -1,0 +1,143 @@
+:host {
+  display: block;
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  color: #1f2328;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.create-course-page {
+  width: 100%;
+}
+
+.page-header {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow,
+.intro {
+  display: none;
+}
+
+h1 {
+  margin: 0;
+  color: #101828;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.back-link,
+.cancel-button {
+  color: #667085;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.form-panel {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  color: #1f2328;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.full-width {
+  grid-column: auto;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  background: #fff;
+  color: #1f2328;
+  font: 0.95rem system-ui, -apple-system, sans-serif;
+}
+
+input:focus {
+  outline: none;
+  border-color: #bf6b4d;
+  box-shadow: 0 0 0 3px rgba(191, 107, 77, 0.15);
+}
+
+input.ng-invalid.ng-touched {
+  border-color: #d92d20;
+}
+
+.field-error {
+  margin-top: 0.25rem;
+  color: #d92d20;
+  font-size: 0.8rem;
+}
+
+.error-message {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  border: 1px solid #fecdca;
+  border-radius: 6px;
+  background: #fef3f2;
+  color: #b42318;
+  font-size: 0.8rem;
+}
+
+.form-actions {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column-reverse;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #eaecf0;
+}
+
+.submit-button,
+.cancel-button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font: 600 0.95rem system-ui, -apple-system, sans-serif;
+  text-align: center;
+  text-decoration: none;
+}
+
+.submit-button {
+  border: 0;
+  background: #bf6b4d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  background: #d0d5dd;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  color: #667085;
+}
+
+@media (max-width: 650px) {
+  :host {
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+}
