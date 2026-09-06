@@ -1,4 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseCardComponent } from "../../ui/course-card/course-card";
 import { Course } from "../../models/course.model";
 import { rxResource } from "@angular/core/rxjs-interop";
@@ -15,6 +16,7 @@ import { AuthService } from "../../services/auth.service";
 export class StudentDashboardComponent {
   private api = inject(CourseService);
   private auth = inject(AuthService);
+  private router = inject(Router);
  
   //studentName = signal("Liya Kebede");
   studentName = computed(() => this.auth.currentUser()?.displayName ?? 'Guest')
@@ -36,5 +38,10 @@ export class StudentDashboardComponent {
   handleEnroll(course: Course) {
     this.selectedCourse.set(course);
     console.log("Enrollment requested for:", course.title);
+  }
+
+  signOut(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
   }
 }

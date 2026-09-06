@@ -1,6 +1,25 @@
 .dashboard-header {
 padding: 1.5rem;
 }
+.header-content {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 1rem;
+}
+.grade-button {
+display: inline-flex;
+align-items: center;
+padding: 0.75rem 1rem;
+border-radius: 6px;
+background: #bf6b4d;
+color: #ffffff;
+font-weight: 600;
+text-decoration: none;
+}
+.grade-button:hover {
+background: #a9573d;
+}
 .kpi-row {
 display: flex;
 gap: 1.5rem;
@@ -30,6 +49,13 @@ margin-top: 0.25rem;
 .chart-section {
 margin-top: 2rem;
 padding: 0 1.5rem;
+}
+
+@media (max-width: 600px) {
+.header-content {
+align-items: flex-start;
+flex-direction: column;
+}
 }
 
 

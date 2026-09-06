@@ -28,6 +28,7 @@ export const routes: Routes = [
         import("./features/student-dashboard/student-dashboard.component").then(
     (m) => m.StudentDashboardComponent,
 ),
+canActivate: [roleGuard('Student')]
 },
 
 {
@@ -58,21 +59,24 @@ import('./features/enrollment-form/enrollment-form').then
   title: 'TMS Instructor Dashboard',
   loadComponent: () =>
     import('./features/instructor-dashboard/instructor-dashboard.component').then
-      (m => m.InstructorDashboardComponent)
+      (m => m.InstructorDashboardComponent),
+      canActivate:[roleGuard('Instructor')]
+      
   },
   {
     path: 'grade-submission',
     title: 'TMS Grade Submission',
   loadComponent: () =>
     import('./features/grade-submission/grade-submission.component').then
-      (m => m.GradeSubmissionComponent)
+      (m => m.GradeSubmissionComponent),
+      canActivate: [roleGuard('Instructor')]
   },
   {
     path: 'admin/courses/new',
     title: 'TMS Create Course',
     loadComponent: () =>
       import('./features/admin-course-create/admin-course-create.component').then(
-        (m) => m.AdminCourseCreateComponent,
+        (m) => m.AdminCourseCreateComponent
       ),
     canActivate: [roleGuard('Admin')],
   },

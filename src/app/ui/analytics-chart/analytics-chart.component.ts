@@ -9,13 +9,13 @@ import {Enrollment } from '../../models/enrollment.model';
       <h3>Enrollment Analytics</h3>
       <div class="chart-bars">
         <div class="bar approved" [style.height.px]="approvedHeight()">
-          <span>Approved</span>
+          <span>Approved: {{ approvedCount() }}</span>
         </div>
         <div class="bar pending" [style.height.px]="pendingHeight()">
-          <span>Pending</span>
+          <span>Pending: {{ pendingCount() }}</span>
         </div>
         <div class="bar rejected" [style.height.px]="rejectedHeight()">
-          <span>Rejected</span>
+          <span>Rejected: {{ rejectedCount() }}</span>
         </div>
       </div>
       <p class="chart-summary">Total records: {{ data().length }}</p>
@@ -26,18 +26,27 @@ import {Enrollment } from '../../models/enrollment.model';
 export class AnalyticsChartComponent {
   data = input.required<Enrollment[]>();
 
+  approvedCount = computed(() =>
+    this.data().filter((e) => e.status === 'Approved').length
+  );
+
+  pendingCount = computed(() =>
+    this.data().filter((e) => e.status === 'Pending').length
+  );
+
+  rejectedCount = computed(() =>
+    this.data().filter((e) => e.status === 'Rejected').length
+  );
+
   approvedHeight = computed(() => {
-    const count = this.data().filter((e) => e.status === 'Approved').length;
-    return Math.max(20, count * 3);
+    return Math.max(20, this.approvedCount() * 3);
   });
 
   pendingHeight = computed(() => {
-    const count = this.data().filter((e) => e.status === 'Pending').length;
-    return Math.max(20, count * 3);
+    return Math.max(20, this.pendingCount() * 3);
   });
 
   rejectedHeight = computed(() => {
-    const count = this.data().filter((e) => e.status === 'Rejected').length;
-    return Math.max(20, count * 3);
+    return Math.max(20, this.rejectedCount() * 3);
   });
 }
